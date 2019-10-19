@@ -26,6 +26,8 @@ class Boids2D : public SimpleScene
 
 		void moveBoids2NewPosition(float deltaTimeSeconds);
 
+		void checkBoundary();
+
 	private:
 		void FrameStart() override;
 		void Update(float deltaTimeSeconds) override;
@@ -42,6 +44,10 @@ class Boids2D : public SimpleScene
 
 	protected:
 		std::unordered_map<std::string, BoidStructure2D*> boids;
-		const int total_boid_num = 20;
+		const int total_boid_num = 40;
 		const float triangleSide = 10;
+		bool rule1TurnedOn = false;
+		bool rule2TurnedOn = false;
+		bool rule3TurnedOn = false;
+		const double maxVelocity = 300, ruleDamping = 10, senseRadius = 75;
 };

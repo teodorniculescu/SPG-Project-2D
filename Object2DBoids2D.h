@@ -10,6 +10,8 @@ namespace Object2DBoids2D
 
 	Mesh* CreateTriangle(std::string name, glm::vec3 leftBottomCorner, float length, glm::vec3 color, bool fill);
 
+	Mesh * CreateCircle(std::string name, glm::vec3 leftBottomCorner, float length, glm::vec3 color, bool fill);
+
 	glm::mat3 Translate(glm::mat3 matrix, glm::vec2 vect);
 
 	glm::mat3 Rotate(glm::mat3 matrix, double angleRadians);

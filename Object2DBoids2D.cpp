@@ -33,7 +33,7 @@ Mesh* Object2DBoids2D::CreateTriangle(std::string name, glm::vec3 leftBottomCorn
 
 	std::vector<VertexFormat> vertices =
 	{
-		VertexFormat(corner + glm::vec3(0, sine60, 0) * glm::vec3(length), cU),
+		VertexFormat(corner + glm::vec3(0, sine60 + 0.5, 0) * glm::vec3(length), cU),
 		VertexFormat(corner + glm::vec3(ymodif, -xmodif, 0) * glm::vec3(length), cL),
 		VertexFormat(corner + glm::vec3(-ymodif, -xmodif, 0) * glm::vec3(length), cL)
 	};
@@ -43,6 +43,37 @@ Mesh* Object2DBoids2D::CreateTriangle(std::string name, glm::vec3 leftBottomCorn
 	
 	if (!fill) {
 		square->SetDrawMode(GL_LINE_LOOP);
+	}
+
+	square->InitFromData(vertices, indices);
+	return square;
+}
+
+Mesh* Object2DBoids2D::CreateCircle(std::string name, glm::vec3 leftBottomCorner, float length, glm::vec3 color, bool fill)
+{
+	glm::vec3 corner = leftBottomCorner;
+	unsigned short numDots = 36;
+	double angleIncrement = AI_DEG_TO_RAD(360 / numDots);
+
+	std::vector<VertexFormat> vertices =
+	{
+		VertexFormat(corner, color)
+	};
+	for (int i = 0; i < numDots; i++)
+		vertices.push_back(VertexFormat(corner + glm::vec3(length * cos(angleIncrement * i), length * sin(angleIncrement * i), 0), color));
+
+	Mesh* square = new Mesh(name);
+	std::vector<unsigned short> indices = { 0, numDots, 1};
+	
+	if (!fill) {
+		square->SetDrawMode(GL_LINE_LOOP);
+	}
+	else {
+		for (int i = 0; i < numDots - 1; i++) {
+			indices.push_back(0);
+			indices.push_back(i + 1);
+			indices.push_back(i + 2);
+		}
 	}
 
 	square->InitFromData(vertices, indices);
@@ -76,3 +107,4 @@ Mesh* Object2DBoids2D::CreateSquare(std::string name, glm::vec3 leftBottomCorner
 	square->InitFromData(vertices, indices);
 	return square;
 }
+
