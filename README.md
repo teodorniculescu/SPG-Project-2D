@@ -1,4 +1,4 @@
-# TemaSPG
+# SPG Project 2D
 
 This project is inspired by the [Coding Adventure Boids video](https://www.youtube.com/watch?v=bqtqltqcQhw).
 
